@@ -12,15 +12,14 @@ Note: For 4 or more names, the number in "and 2 others" simply increases.
 */
 
 function likes(names) {
-    console.log(names.length - 2)
     return names.length === 1
         ? names[0] + " likes this"
         : names.length === 2
         ? names[0] + " and " + names[1] + " like this"
         : names.length === 3
-        ? names[0] + ", " + names[1] + " and " + names[2] + " like others this"
+        ? names[0] + ", " + names[1] + " and " + names[2] + " like this"
         : names.length > 3
-        ? `${names[0]}, ${names[1]} and ${names.length - 2} like this`
+        ? `${names[0]}, ${names[1]} and ${names.length - 2} others like this`
         : "no one likes this"
 }
 
