@@ -36,29 +36,39 @@ const helper = (n, pre, rep) => {
 }
 
 // Define the function
-const evaluateN = (n, length) => {
+const evaluateN = (n, length, number) => {
     // Initialize an empty string to store the result
     let res = ""
-    n = parseInt(n)
+
     if (n < 1) return
     // Use the "switch" statement to evaluate the value of the "length" parameter
     switch (length) {
         // If the length is 4, evaluate the thousands place
         case 4:
+            console.log("thousands", n)
             //Instructions aren't clear if n > 2000 is expected
             res = n > 1 ? "MM" : "M"
             break
         // If the length is 3, evaluate the hundreds place
         case 3:
+            console.log("hundreds", n)
             res = n === 9 ? "CM" : helper(n, "D", "C")
             break
         // If the length is 2, evaluate the tens place
         case 2:
-            res = n === 9 ? "LC" : helper(n, "L", "X")
-
+            console.log("tens", n)
+            //if the last two digits of number are '10' return X
+            res =
+                String(number).slice(-2) === "10"
+                    ? "X"
+                    : n === 9
+                    ? "XC"
+                    : helper(n, "L", "X")
+            break
         // If the length is none of the above, evaluate the 0-9 place
         default:
-            res = n === 9 ? "VX" : helper(n, "V", "I")
+            console.log("units", n)
+            res = n === 9 ? "IX" : helper(n, "V", "I")
     }
 
     // Return the result
@@ -71,18 +81,18 @@ function solution(number) {
     number
         .toString()
         .split("")
-        .forEach((x) => {
+        .forEach((n, i) => {
             //decrement length
             length--
-            const numeral = evaluateN(x, length)
+            n = parseInt(n)
+            const numeral = evaluateN(n, length, number)
             if (numeral !== undefined) rom += numeral
         })
 
     return rom
 }
 
-console.log(solution(5), "expected V")
-
+console.log(solution(10))
 // Idea 1
 /* 
     split the numeral into an array
