@@ -25,20 +25,18 @@ result should == "apples, pears\ngrapes\nbananas"
 //any whitespace at the end of the line should also be stripped out
 
 function solution(input, markers) {
-    // Create a regular expression that matches any of the given markers
+    // Create a regular expression that matches any of the given markers and wrap in brackets because
+    // marker may be a regex character
     var regex = new RegExp(
         "(" + markers.map((m) => `[${m}]`).join("|") + ")",
         "g"
     )
-    console.log(regex)
 
     let lines = input.split("\n")
     lines.forEach((line, i) => {
         const search = line.search(regex)
-        console.log(search)
         if (search !== -1) {
             lines[i] = line.slice(0, search).trim()
-            console.log(line)
         }
     })
     return lines.join("\n")
